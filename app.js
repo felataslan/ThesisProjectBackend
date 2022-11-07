@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import conn from './db.js';
 import userRoute from './route/userRoute.js'
-import pageRoute from'./route/pageRoute.js'
+import pageRoute from './route/pageRoute.js'
 import cors from 'cors'
 
 
@@ -22,15 +22,17 @@ const port = process.env.PORT || 3000;
 //static files middleware
 app.use(express.static('public'));
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
 
-app.get('/data',(req,res)=>{
-  res.send('some data');
-})
+// app.get('/users/register',(req,res)=>{
+//   res.json({req});
+// })
+
+
 // Routes
-// app.use('/',pageRoute)
-// app.use('/users',userRoute)
+app.use('/api', pageRoute)
+app.use('/users', userRoute)
 
 
 

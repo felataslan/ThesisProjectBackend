@@ -12,7 +12,7 @@ const userSchema=new Schema({
     surname:{
         type:String,
     },
-    username:{
+    userName:{
         type:String,
         required:[true,'Username area is required'],
         lowercase:true,

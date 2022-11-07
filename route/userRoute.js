@@ -10,6 +10,10 @@ router
 .route('/signup')
 .post(userController.createUser)
 
+router
+.route('/login')
+.post(userController.userLogin)
+
 
 
 export default router;
