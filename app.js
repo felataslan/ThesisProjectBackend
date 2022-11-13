@@ -25,13 +25,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-// app.get('/users/register',(req,res)=>{
-//   res.json({req});
-// })
-
-
 // Routes
-app.use('/api', pageRoute)
+// app.use('/api', pageRoute)
 app.use('/users', userRoute)
 
 
