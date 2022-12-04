@@ -44,13 +44,13 @@ const userSchema=new Schema({
 }
 );
 
-userSchema.pre('save',function(next){
-    const user=this;
-    bcrypt.hash(user.password,10,(err,hash)=>{
-        user.password=hash;
-        next();
-    })
-})
+// userSchema.pre('save',function(next){
+//     const user=this;
+//     bcrypt.hash(user.password,10,(err,hash)=>{
+//         user.password=hash;
+//         next();
+//     })
+// })
 const User=mongoose.model('User',userSchema)
 
 export default User;

@@ -1,7 +1,8 @@
 import User from "../models/userModel.js";
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { json } from "express";
+ import { json } from "express";
+import { JSONCookies } from "cookie-parser";
 
 const createUser = async (req, res) => {
 
@@ -30,13 +31,21 @@ const userLogin = async (req, res) => {
 
         const user = await User.findOne({ email })
 
-        console.log(user)
+        
+        console.log('user.password:'+user.password)
+
         let same = false
+        
 
         if (user) {
-            same = await bcrypt.compare(password, user.password)
-            console.log('Same:', same);
-            // return res.status(200).json({})
+      
+            if(password==user.password){
+                same=true;
+            }
+            // // same = await bcrypt.compare(password.trim(),user.password.trim())
+            
+            // console.log('Same1:', same)
+            // //  return res.status(200).json({})
 
 
         } else {
@@ -45,18 +54,20 @@ const userLogin = async (req, res) => {
                 error: 'There is no such user',
             })
         }
+        console.log('Same2:',same)
         if (same) {
 
             res.status(200).json({
                 user,
                 token:createToken(user._id),
             })
+            ///Cookie
             // const token = createToken(user._id);
             // res.cookie('jwt', token, {
             //     httpOnly: true,
             //     maxAge: 1000 * 60 * 60 * 24,
             // })
-            // res.redirect('/');
+
         }
         else {
             res.status(401).json({
@@ -82,4 +93,107 @@ const createToken = (userId) => {
     });
 };
 
-export { createUser, userLogin,createToken };
+const updateUser= async (req,res)=>{
+    // console.log('REQ',req.body)
+    const { email } = req.body
+    try {
+        
+
+        const user = await User.findOne({email})
+
+        console.log('REssssss:' ,res)
+        console.log('User: ',user)
+        console.log('body: ',req.body)
+        console.log('cookie:'+req.headers.authorization.trim())
+        // console.log('mail:',req.body.email)
+        user.name=req.body.name;
+        user.surname=req.body.surname;
+        user.userName=req.body.userName;
+        user.email=req.body.email;
+        user.gender=req.body.gender;
+        user.city=req.body.city;
+        
+
+        user.save();
+
+        res.status(200).json({
+            succeded:true,
+            user,
+            token:req.headers.authorization,
+
+        })
+        
+
+
+
+
+
+        
+        
+
+    } catch (error) {
+        console.log(error)
+        
+        res.status(500).json({
+            succeded: false,
+            error,
+        })
+    }
+
+}
+
+const updatePassword= async (req,res,message)=>{
+    // console.log('REQ',req.body)
+    const { oldPassword,newPassword,email} = req.body
+    try {
+        
+
+        const user = await User.findOne({email})
+        console.log('REssssss:' ,res)
+        console.log('User: ',user)
+        if(user){
+            if(oldPassword===user.password){
+                //password update işlemleri
+                console.log('old Password',oldPassword)
+                console.log('new Password',newPassword)
+                user.password=newPassword
+
+
+                user.save();
+                res.status(200).json({
+                    succeded:true,
+                    user,
+                    token:req.headers.authorization,
+                    message:'Password update succesfully',
+                })
+            }else{
+                res.status(401).json({
+                    succeded:false,
+                    user,
+                    message:'Mevcut şifrenizi yanlış girdiniz lütfen şifrenizi kontrol edin',
+
+                })
+            }
+
+        }else{
+            res.status(401).json({
+                succeded:false,
+                user,
+                message:'Kullanıcı Bulunamadı',
+            })
+        }
+
+
+    } catch (error) {
+        console.log(error)
+        
+        res.status(500).json({
+            succeded: false,
+            error,
+        })
+    }
+
+}
+
+
+export { createUser, userLogin,createToken ,updateUser,updatePassword};
