@@ -1,7 +1,5 @@
 import User from "../models/userModel.js";
 import jwt, { decode } from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
- import { json } from "express";
 import { JSONCookies } from "cookie-parser";
 
 const createUser = async (req, res) => {
@@ -42,10 +40,6 @@ const userLogin = async (req, res) => {
             if(password==user.password){
                 same=true;
             }
-            // // same = await bcrypt.compare(password.trim(),user.password.trim())
-            
-            // console.log('Same1:', same)
-            // //  return res.status(200).json({})
 
 
         } else {
@@ -61,7 +55,7 @@ const userLogin = async (req, res) => {
                 user,
                 token:createToken(user._id),
             })
-            ///Cookie
+            //Cookie
             // const token = createToken(user._id);
             // res.cookie('jwt', token, {
             //     httpOnly: true,
