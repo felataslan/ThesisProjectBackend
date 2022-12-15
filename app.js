@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 import conn from './db.js';
 import userRoute from './route/userRoute.js'
 import productRoute from './route/productRoute.js'
-import cookieParser from 'cookie-parser';
-// import {checkUser} from './middlewares/authMiddleware.js'
+// import cookieParser from 'cookie-parser';
+import {checkUser} from './middlewares/authMiddleware.js'
 import cors from 'cors'
 import {v2 as cloudinary}from 'cloudinary'
 import fileUpload from 'express-fileupload'
@@ -31,13 +31,13 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 app.use(express.json())
-// app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
+// app.use(cookieParser())
 app.use(fileUpload({useTempFiles:true}))
 
 
 // Routes
-// app.use('*',checkUser)
+app.use('*',checkUser)
 app.use('/users', userRoute)
 app.use('/products', productRoute)
 

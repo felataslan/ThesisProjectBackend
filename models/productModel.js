@@ -13,6 +13,9 @@ const productSchema= new Schema({
     productName:{
         type:String,
     },
+    email:{
+        type:String,
+    },
     phone:{
         type:String,
 
@@ -25,10 +28,10 @@ const productSchema= new Schema({
         type:Date,
         default:Date.now,    
     },
-    // user:{
-    //     type:Schema.Types.ObjectId,
-    //     ref:'User',
-    // },
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:'User',
+    },
     url:{
         type:String,
         required:true,
