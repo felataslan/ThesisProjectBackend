@@ -1,6 +1,5 @@
 import User from "../models/userModel.js";
-import jwt, { decode } from 'jsonwebtoken'
-import { JSONCookies } from "cookie-parser";
+import jwt from 'jsonwebtoken'
 
 const createUser = async (req, res) => {
 
@@ -30,7 +29,7 @@ const userLogin = async (req, res) => {
         const user = await User.findOne({ email })
 
         
-        console.log('user.password:'+user.password)
+        console.log('user:',user)
 
         let same = false
         
@@ -51,16 +50,14 @@ const userLogin = async (req, res) => {
         console.log('Same2:',same)
         if (same) {
 
+             
+            const token = createToken(user._id);
+            
             res.status(200).json({
                 user,
-                token:createToken(user._id),
+                token:token,
             })
-            //Cookie
-            // const token = createToken(user._id);
-            // res.cookie('jwt', token, {
-            //     httpOnly: true,
-            //     maxAge: 1000 * 60 * 60 * 24,
-            // })
+           
 
         }
         else {
@@ -81,7 +78,7 @@ const userLogin = async (req, res) => {
 };
 
 const createToken = (userId) => {
-
+    console.log('3')
     return jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: '1d',
     });

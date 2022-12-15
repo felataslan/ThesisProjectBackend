@@ -17,11 +17,11 @@ router
 
 router
 .route('/userinfo')
-.post(userController.updateUser)
+.post(authMiddleware.authenticateToken,userController.updateUser)
 
 router
 .route('/passwordUpdate')
-.put(userController.updatePassword)
+.put(authMiddleware.authenticateToken,userController.updatePassword)
 
 
 
