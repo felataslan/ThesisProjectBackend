@@ -8,6 +8,10 @@ router
 .route('/product')
 .post(authMiddleware.authenticateToken,productController.createProduct);
 
+router
+.route('/product')
+.get(authMiddleware.authenticateToken,productController.getProduct)
+
 
 
 export default router;

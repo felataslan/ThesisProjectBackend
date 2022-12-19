@@ -2,13 +2,11 @@ import User from "../models/userModel.js";
 import jwt from 'jsonwebtoken'
 
 // check user id have database by login 
-const checkUser = async (req, res, next) => {
-    console.log('cookie.jwt', req.headers['authorization'])
+const checkUser =  (req, res, next) => {
     const token = req.headers['authorization'];
     console.log('token,', token)
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-            console.log('decodedtoken,', decodedToken)
             if (err) {
                 console.log(err.message);
                 res.locals.user = null;
@@ -33,9 +31,6 @@ const authenticateToken = async (req, res, next) => {
 
     try {
         const token = req.headers['authorization'];
-        console.log('token',token)
-
-
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET, (err) => {
                 if (err) {

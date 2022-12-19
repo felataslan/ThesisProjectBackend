@@ -5,7 +5,6 @@ const createUser = async (req, res) => {
 
     try {
         const user = await User.create(req.body);
-        console.log('req Body', user)
         res.status(201).json({
             succeded: true,
             user,
@@ -20,16 +19,11 @@ const createUser = async (req, res) => {
 };
 
 const userLogin = async (req, res) => {
-    // console.log('req Body', req.body)
     try {
         const { email, password } = req.body
 
-        // console.log('req.body',req.body);
 
         const user = await User.findOne({ email })
-
-        
-        console.log('user:',user)
 
         let same = false
         
@@ -47,7 +41,6 @@ const userLogin = async (req, res) => {
                 error: 'There is no such user',
             })
         }
-        console.log('Same2:',same)
         if (same) {
 
              
@@ -78,25 +71,19 @@ const userLogin = async (req, res) => {
 };
 
 const createToken = (userId) => {
-    console.log('3')
     return jwt.sign({ userId }, process.env.JWT_SECRET, {
         expiresIn: '1d',
     });
 };
 
 const updateUser= async (req,res)=>{
-    // console.log('REQ',req.body)
+    
     const { email } = req.body
     try {
         
 
         const user = await User.findOne({email})
 
-        console.log('REssssss:' ,res)
-        console.log('User: ',user)
-        console.log('body: ',req.body)
-        console.log('cookie:'+req.headers.authorization.trim())
-        // console.log('mail:',req.body.email)
         user.name=req.body.name;
         user.surname=req.body.surname;
         user.userName=req.body.userName;
@@ -113,17 +100,9 @@ const updateUser= async (req,res)=>{
             token:req.headers.authorization,
 
         })
-        
-
-
-
-
-
-        
-        
 
     } catch (error) {
-        console.log(error)
+        console.log('error Update',error)
         
         res.status(500).json({
             succeded: false,
@@ -134,19 +113,15 @@ const updateUser= async (req,res)=>{
 }
 
 const updatePassword= async (req,res,message)=>{
-    // console.log('REQ',req.body)
     const { oldPassword,newPassword,email} = req.body
     try {
         
 
         const user = await User.findOne({email})
-        console.log('REssssss:' ,res)
-        console.log('User: ',user)
         if(user){
             if(oldPassword===user.password){
                 //password update işlemleri
-                console.log('old Password',oldPassword)
-                console.log('new Password',newPassword)
+              
                 user.password=newPassword
 
 
@@ -176,7 +151,6 @@ const updatePassword= async (req,res,message)=>{
 
 
     } catch (error) {
-        console.log(error)
         
         res.status(500).json({
             succeded: false,

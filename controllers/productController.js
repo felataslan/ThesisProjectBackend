@@ -5,14 +5,6 @@ import fs from 'fs'
 
 
 const createProduct = async (req, res,message) => {
-
-//     const {email}=req.body;
-
-
-//   const user= await User.findOne({email})
-
-    // console.log('if bloğu');
-    // console.log('user',user)
     if(req.headers.authorization){
 
         const result = await cloudinary.uploader.upload(
@@ -23,7 +15,6 @@ const createProduct = async (req, res,message) => {
             }
         );
 
-        console.log('result',result);
 
         try {
 
@@ -65,4 +56,36 @@ const createProduct = async (req, res,message) => {
 
 };
 
-export { createProduct }
+const getProduct= async (req,res)=>{
+    console.log('req',res.locals)
+
+    try {
+
+        if(req.headers.authorization){
+        const product =await Product.find({user:res.locals.user._id})
+        console.log('product',product)
+
+        res.status(201).json({
+            succeded:true,
+            data:product,
+        })
+        }else{
+            res.status(404).json({
+                succeded:false,
+                
+            })
+        }
+
+        
+     
+    } catch (error) {
+        res.status(500).json({
+            succeded: false,
+            error,
+        })
+    }
+
+}
+
+
+export { createProduct,getProduct }
