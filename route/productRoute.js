@@ -12,6 +12,33 @@ router
 .route('/product')
 .get(authMiddleware.authenticateToken,productController.getProduct)
 
+router
+.route('/product/all')
+.get(productController.getAllProduct)
 
+router
+.route('/product/furniture')
+.get(productController.getFurniture)
+
+router
+.route('/product/tecnology')
+.get(productController.getTecnology)
+
+router
+.route('/product/jewerly')
+.get(productController.getJewerly)
+
+
+router
+.route('/product/delete')
+.post(authMiddleware.authenticateToken,productController.deleteProduct);
+
+router
+.route('/product/fillproduct')
+.post(authMiddleware.authenticateToken,productController.productInfo);
+
+router
+.route('/product/mail')
+.post(productController.sendMail);
 
 export default router;
