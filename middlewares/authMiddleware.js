@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 // check user id have database by login 
 const checkUser =  (req, res, next) => {
     const token = req.headers['authorization'];
-    console.log('token,', token)
     if (token) {
         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
@@ -28,7 +27,6 @@ const checkUser =  (req, res, next) => {
 
 // check have token have or not by login system 
 const authenticateToken = async (req, res, next) => {
-
     try {
         const token = req.headers['authorization'];
         if (token) {
@@ -43,10 +41,12 @@ const authenticateToken = async (req, res, next) => {
             })
         }
         else {
+            console.log('blallala')
             res.redirect('/login');
         }
 
     } catch (error) {
+        
         res.status(401).json({
             succeded: false,
             error: 'Not authorized',
