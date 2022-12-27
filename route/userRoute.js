@@ -4,28 +4,25 @@ import * as authMiddleware from '../middlewares/authMiddleware.js'
 
 const router =express.Router();
 
-
-
-
 router
 .route('/signup')
-.post(userController.createUser)
+.post(userController.asyncCreateUser)
 
 router
 .route('/login')
-.post(userController.userLogin)
+.post(userController.asyncUserLogin)
 
 router
 .route('/forget')
-.post(userController.forgetPass)
+.post(userController.asyncForgetPass)
 
 router
 .route('/userinfo')
-.post(authMiddleware.authenticateToken,userController.updateUser)
+.post(authMiddleware.asyncAuthenticateToken,userController.asyncUpdateUser)
 
 router
 .route('/passwordUpdate')
-.put(authMiddleware.authenticateToken,userController.updatePassword)
+.put(authMiddleware.asyncAuthenticateToken,userController.asyncUpdatePassword)
 
 
 

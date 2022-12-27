@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer'
 import fs from 'fs'
 
 
-const createProduct = async (req, res,message) => {
+const asyncCreateProduct = async (req, res,message) => {
     if(req.headers.authorization){
 
         const result = await cloudinary.uploader.upload(
@@ -57,7 +57,7 @@ const createProduct = async (req, res,message) => {
 
 };
 
-const getProduct= async (req,res)=>{
+const asyncGetProduct= async (req,res)=>{
     try {
 
         if(req.headers.authorization){
@@ -83,7 +83,7 @@ const getProduct= async (req,res)=>{
     }
 
 }
-const getAllProduct= async (req,res)=>{
+const asyncGetAllProduct= async (req,res)=>{
 
   const user = res.locals.user ? res.locals.user._id : ''
   console.log(user)
@@ -110,7 +110,7 @@ const getAllProduct= async (req,res)=>{
   }
 
 }
-const getFurniture= async (req,res)=>{
+const asyncGetFurniture= async (req,res)=>{
 
   const user = res.locals.user ? res.locals.user._id : ''
   console.log(user)
@@ -132,7 +132,7 @@ const getFurniture= async (req,res)=>{
   }
 
 }
-const getTecnology= async (req,res)=>{
+const asyncGetTecnology= async (req,res)=>{
 
   const user = res.locals.user ? res.locals.user._id : ''
   
@@ -156,7 +156,7 @@ const getTecnology= async (req,res)=>{
 
 }
 
-const getJewerly= async (req,res)=>{
+const asyncGetJewerly= async (req,res)=>{
 
   const user = res.locals.user ? res.locals.user._id : ''
   console.log(user)
@@ -179,7 +179,7 @@ const getJewerly= async (req,res)=>{
 
 }
 
-const deleteProduct=async (req,res)=>{
+const asyncDeleteProduct=async (req,res)=>{
     const {productID}= req.body;
     try {
         const product = await Product.findById({_id:productID});
@@ -203,7 +203,7 @@ const deleteProduct=async (req,res)=>{
     }
 }
 
-const productInfo =async(req,res)=>{
+const asyncProductInfo =async(req,res)=>{
     const {data}=req.body
     console.log(req)
     console.log(data)
@@ -234,7 +234,7 @@ const productInfo =async(req,res)=>{
 
 }
 
-const sendMail = async (req,res)=>{
+const asyncSendMail = async (req,res)=>{
 
    console.log('req.body',req.body)
    
@@ -407,4 +407,4 @@ const sendMail = async (req,res)=>{
 }
 
 
-export { createProduct,getProduct,deleteProduct,productInfo,sendMail,getAllProduct,getFurniture,getTecnology,getJewerly }
+export { asyncCreateProduct,asyncGetProduct,asyncDeleteProduct,asyncProductInfo,asyncSendMail,asyncGetAllProduct,asyncGetFurniture,asyncGetTecnology,asyncGetJewerly }
