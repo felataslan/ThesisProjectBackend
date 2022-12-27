@@ -135,6 +135,7 @@ const getFurniture= async (req,res)=>{
 const getTecnology= async (req,res)=>{
 
   const user = res.locals.user ? res.locals.user._id : ''
+  
   console.log(user)
   try {
 
@@ -209,7 +210,7 @@ const productInfo =async(req,res)=>{
 
     try {
 
-        if(req.headers.authorization){
+        
         const product =await Product.findOne({_id:data})
         const userId= product.user
         const user = await User.findOne({_id:userId})
@@ -220,12 +221,7 @@ const productInfo =async(req,res)=>{
             data:product,
             user:user,
         })
-        }else{
-            res.status(404).json({
-                succeded:false,
-                
-            })
-        }
+
      
     } catch (error) {
         res.status(500).json({
@@ -393,8 +389,9 @@ const sendMail = async (req,res)=>{
             subject: `MAIL FROM ${req.body.email}`, // Subject line
             html: htmlTemplate, // html body
         });
-        res.status(200).json({
-            succeeded:true,
+
+       return res.status(200).json({
+            succeded:true,
           })
 
 

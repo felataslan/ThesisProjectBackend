@@ -35,7 +35,7 @@ router
 
 router
 .route('/product/fillproduct')
-.post(authMiddleware.authenticateToken,productController.productInfo);
+.post(productController.productInfo);
 
 router
 .route('/product/mail')

@@ -41,7 +41,6 @@ const authenticateToken = async (req, res, next) => {
             })
         }
         else {
-            console.log('blallala')
             res.redirect('/login');
         }
 
