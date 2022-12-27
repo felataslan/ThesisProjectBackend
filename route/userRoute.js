@@ -16,6 +16,10 @@ router
 .post(userController.userLogin)
 
 router
+.route('/forget')
+.post(userController.forgetPass)
+
+router
 .route('/userinfo')
 .post(authMiddleware.authenticateToken,userController.updateUser)
 
