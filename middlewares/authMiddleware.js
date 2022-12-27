@@ -26,11 +26,11 @@ const checkUser =  (req, res, next) => {
 
 
 // check have token have or not by login system 
-const authenticateToken = async (req, res, next) => {
+const asyncAuthenticateToken = async (req, res, next) => {
     try {
         const token = req.headers['authorization'];
         if (token) {
-            jwt.verify(token, process.env.JWT_SECRET, (err) => {
+           jwt.verify(token, process.env.JWT_SECRET, (err) => {
                 if (err) {
                     console.log(err.message);
                     res.redirect('/login');
@@ -56,4 +56,4 @@ const authenticateToken = async (req, res, next) => {
 
 }
 
-export { authenticateToken, checkUser }
+export { asyncAuthenticateToken, checkUser }

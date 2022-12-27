@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 
 
-const createUser = async (req, res) => {
+const asyncCreateUser = async (req, res) => {
 
     try {
         const user = await User.create(req.body);
@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
 
 };
 
-const userLogin = async (req, res) => {
+const asyncUserLogin = async (req, res) => {
     try {
         const { email, password } = req.body
 
@@ -71,7 +71,7 @@ const userLogin = async (req, res) => {
     }
 
 };
-const forgetPass = async (req, res) => {
+const asyncForgetPass = async (req, res) => {
 
     const {email} = req.body
 
@@ -260,7 +260,7 @@ const createToken = (userId) => {
     });
 };
 
-const updateUser= async (req,res)=>{
+const asyncUpdateUser= async (req,res)=>{
     
     const { email } = req.body
     try {
@@ -296,7 +296,7 @@ const updateUser= async (req,res)=>{
 
 }
 
-const updatePassword= async (req,res,message)=>{
+const asyncUpdatePassword= async (req,res,message)=>{
     const { oldPassword,newPassword,email} = req.body
     try {
         
@@ -345,4 +345,4 @@ const updatePassword= async (req,res,message)=>{
 }
 
 
-export { createUser, userLogin,createToken ,updateUser,updatePassword,forgetPass};
+export { asyncCreateUser, asyncUserLogin,createToken ,asyncUpdateUser,asyncUpdatePassword,asyncForgetPass};

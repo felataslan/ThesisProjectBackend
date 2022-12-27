@@ -6,39 +6,39 @@ const router=express.Router();
 
 router
 .route('/product')
-.post(authMiddleware.authenticateToken,productController.createProduct);
+.post(authMiddleware.asyncAuthenticateToken,productController.asyncCreateProduct);
 
 router
 .route('/product')
-.get(authMiddleware.authenticateToken,productController.getProduct)
+.get(authMiddleware.asyncAuthenticateToken,productController.asyncGetProduct)
 
 router
 .route('/product/all')
-.get(productController.getAllProduct)
+.get(productController.asyncGetAllProduct)
 
 router
 .route('/product/furniture')
-.get(productController.getFurniture)
+.get(productController.asyncGetFurniture)
 
 router
 .route('/product/tecnology')
-.get(productController.getTecnology)
+.get(productController.asyncGetTecnology)
 
 router
 .route('/product/jewerly')
-.get(productController.getJewerly)
+.get(productController.asyncGetJewerly)
 
 
 router
 .route('/product/delete')
-.post(authMiddleware.authenticateToken,productController.deleteProduct);
+.post(authMiddleware.asyncAuthenticateToken,productController.asyncDeleteProduct);
 
 router
 .route('/product/fillproduct')
-.post(productController.productInfo);
+.post(productController.asyncProductInfo);
 
 router
 .route('/product/mail')
-.post(productController.sendMail);
+.post(productController.asyncSendMail);
 
 export default router;
