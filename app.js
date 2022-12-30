@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import conn from './db.js';
 import userRoute from './route/userRoute.js'
 import productRoute from './route/productRoute.js'
+import adminRoute from './route/adminRoute.js'
+import editorRoute from './route/editorRoute.js'
 import {checkUser} from './middlewares/authMiddleware.js'
 import cors from 'cors'
 import {v2 as cloudinary}from 'cloudinary'
@@ -34,7 +36,10 @@ app.use(fileUpload({useTempFiles:true}))
 // Routes
 app.use('*',checkUser)
 app.use('/users', userRoute)
-app.use('/products', productRoute)
+app.use('/products',productRoute)
+app.use('/admin', adminRoute)
+app.use('/editor', editorRoute)
+
 
 
 
