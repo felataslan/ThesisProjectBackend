@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 
 
+
 const asyncCreateUser = async (req, res) => {
 
     try {
@@ -343,6 +344,8 @@ const asyncUpdatePassword= async (req,res,message)=>{
     }
 
 }
+
+
 
 
 export { asyncCreateUser, asyncUserLogin,createToken ,asyncUpdateUser,asyncUpdatePassword,asyncForgetPass};

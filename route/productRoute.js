@@ -34,7 +34,7 @@ router
 .post(authMiddleware.asyncAuthenticateToken,productController.asyncDeleteProduct);
 
 router
-.route('/product/fillproduct')
+.route('/product/fill-product')
 .post(productController.asyncProductInfo);
 
 router
